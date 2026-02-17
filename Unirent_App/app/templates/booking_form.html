@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book with UniRent</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .booking-container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 60px;
+        }
+
+        /* Left Side: Item Summary */
+        .item-summary {
+            flex: 1;
+            padding-top: 20px;
+        }
+
+        .item-summary h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e67e22; 
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            max-width: 450px;
+        }
+
+        .info-card p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Right Side: Form Section */
+        .form-section {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(0, 0, 0, 0.3); 
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-control, .form-select {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border: none;
+            height: 45px;
+            border-radius: 4px;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            color: #333 !important;
+        }
+
+        .phone-input-wrapper {
+            position: relative;
+        }
+
+        .phone-hint {
+            font-size: 0.75rem;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            display: block;
+            opacity: 0.8;
+            color: #ff9f43; /* Highlighted hint color */
+        }
+
+        .btn-booking {
+            width: 100%;
+            background-color: #d35400; 
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-booking:hover {
+            background-color: #e67e22;
+        }
+
+        @media (max-width: 992px) {
+            .booking-container { flex-direction: column; text-align: center; }
+            .item-summary h1 { font-size: 2.5rem; }
+            .info-card { margin: 0 auto; text-align: left; }
+            .form-section { max-width: 100%; }
+        }
+    </style>
+    <script>
+        // Set minimum date to today
+        function setMinDate() {
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.getElementById('start_date');
+            if(dateInput) dateInput.setAttribute('min', today);
+        }
+
+        // Added back your original phone formatting logic
+        function formatPhoneNumber() {
+            const phoneInput = document.getElementById('phone');
+            let val = phoneInput.value;
+            // You can add custom formatting logic here if needed
+        }
+
+        window.onload = setMinDate;
+    </script>
+</head>
+<body>
+
+    <div class="booking-container">
+        <div class="item-summary">
+            <h1>Ready to<br>Rent?</h1>
+            <span class="price-tag">KES {{ item.price }}</span>
+            
+            <div class="info-card">
+                <p><strong>Item:</strong> {{ item.name }}</p>
+                <p><strong>Available in:</strong> {{ item.available_locations|join(", ") }}</p>
+                <hr style="opacity: 0.2;">
+                <p style="font-size: 0.9rem;">Please provide your details below to finalize the rental process.</p>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>Complete Booking</h2>
+
+            <form action="/submit_booking" method="POST">
+                <input type="hidden" name="item_id" value="{{ item._id }}">
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <div class="mb-3 phone-input-wrapper">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" 
+                           pattern="2547[0-9]{8}" required 
+                           placeholder="2547XXXXXXXX" oninput="formatPhoneNumber()">
+                    <small class="phone-hint">Must start with <strong>2547</strong> (e.g., 254712345678)</small>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="location" class="form-label">Preferred Location</label>
+                        <select class="form-select" id="location" name="location" required>
+                            {% for loc in item.available_locations %}
+                                <option value="{{ loc }}">{{ loc }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="start_date" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-booking">
+                    <i class="fas fa-paper-plane me-2"></i> Submit Booking
+                </button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

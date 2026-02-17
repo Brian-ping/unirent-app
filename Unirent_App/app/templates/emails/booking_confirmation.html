@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2 style="color: #2E86C1;">Booking Confirmation</h2>
+    <p>Hello {{ customer_name }},</p>
+    
+    <p>Your booking #{{ booking_id }} is confirmed!</p>
+    
+    <h3>Details:</h3>
+    <ul>
+        <li><strong>Item:</strong> {{ item_name }}</li>
+        <li><strong>Dates:</strong> {{ start_date }} to {{ end_date }}</li>
+        <li><strong>Total:</strong> KES {{ price }}</li>
+    </ul>
+    
+    <p>We've attached your receipt for this booking.</p>
+    
+    <p style="color: #666; font-size: 0.9em;">
+        Need help? Contact <a href="mailto:{{ support_email }}">customer support</a>.
+    </p>
+</body>
+</html>

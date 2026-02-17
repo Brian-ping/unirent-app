@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Parties - UniRent</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Modern Navbar */
+        .navbar {
+            background-color: #2c3e50;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #f39c12 !important;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-size: 1rem;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #f39c12 !important;
+        }
+
+        .navbar-toggler {
+            border: none;
+            outline: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        /* Modern Sidebar */
+        .sidebar {
+            height: 100vh;
+            width: 0;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            background-color: #34495e;
+            overflow-x: hidden;
+            padding-top: 60px;
+            transition: width 0.5s;
+        }
+
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: #ecf0f1;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #2c3e50;
+            color: #f39c12;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 2rem;
+            color: #ecf0f1;
+        }
+
+        .openbtn {
+            font-size: 1.5rem;
+            cursor: pointer;
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .openbtn:hover {
+            color: #f39c12;
+        }
+
+        /* Main Content */
+        #main {
+            transition: margin-left 0.5s;
+            padding: 20px;
+            margin-left: 0;
+        }
+
+        .sidebar-open #main {
+            margin-left: 250px;
+        }
+
+        .content-section h2 {
+            margin-bottom: 2rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        /* Card Design */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 0px;
+            min-width: 250px;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 0;
+        }
+
+        .card-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #34495e;
+            flex-grow: 1;
+        }
+
+        /* Badge Styles */
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .badge-success {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .badge-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .footer a {
+            color: #f39c12;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #e67e22;
+        }
+
+        .buy-now-btn {
+            background-color: #34495e;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .buy-now-btn:hover {
+            background-color: #f39c12;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: white;
+            text-decoration: none;
+        }
+
+        .login-btn {
+            background-color: #f39c12;
+        }
+
+        .login-btn:hover {
+            background-color: #e67e22;
+        }
+
+        .btn-secondary {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .btn-secondary:hover {
+            background-color: #95a5a6;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .view-more-btn {
+            background-color: white;
+            color: black;
+            padding: 10px 16px;
+            border: none;
+            border-radius: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 6px;
+        }
+
+        .view-more-btn:hover {
+            background-color: #34495e;
+            color: white;
+        }
+
+        .view-more-container {
+            text-align: right;
+        }
+
+        .buy-now-container {
+            text-align: right;
+            margin-top: auto;
+        }
+
+        /**Dropdown menu*/
+        .dropdown-content {
+            display: none;
+            padding-left: 15px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 8px;
+            text-decoration: none;
+            color: #ecf0f1;
+        }
+
+        .dropdown-btn {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .content-container {
+            background-color: white;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 1500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Headers */
+        h2, h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after, h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #f39c12;
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            margin-bottom: 40px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+
+        .col-md-3 {
+            padding: 0 10px;
+            margin-bottom: 20px;
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+
+        @media (max-width: 992px) {
+            .col-md-3 {
+                flex: 0 0 33.333%;
+                max-width: 33.333%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .col-md-3 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .col-md-3 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        /* Overlay for better UX */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            transition: opacity 0.5s;
+        }
+
+        .sidebar-open .overlay {
+            display: block;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(184, 252, 252);">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <!-- Hamburger Menu Button -->
+            <button class="openbtn" onclick="openNav()">☰</button>
+            <a class="navbar-brand" href="/">UniRent</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <form class="d-flex ms-auto me-4">
+                    <input class="form-control me-3" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fas fa-user"></i> Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                            <li><a class="dropdown-item" href="/login"><i class="fas fa-sign-in-alt me-2"></i>Login</a></li>
+                            <li><a class="dropdown-item" href="/register"><i class="fas fa-user-plus me-2"></i>Register</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/view_bookings"><i class="fas fa-calendar-check me-2"></i>View
+                                    Booking</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="{{ url_for('main.electronics') }}" class="dropdown-btn">Electronics & appliances</a>
+        <div class="dropdown-content">
+            <a href="{{ url_for('main.electronics') }}#consoles">Consoles</a>
+            <a href="#">Televisions</a>
+            <a href="#">Cameras & drones</a>
+            <a href="#">Laptops</a>
+            <a href="#">Audio equipment</a>
+        </div>
+        <a href="{{ url_for('main.real') }}" class="dropdown-btn">Real estate and property</a>
+        <div class="dropdown-content">
+            <a href="#">Houses</a>
+            <a href="#">Apartments</a>
+            <a href="#">Land</a>
+            <a href="#">Wedding grounds</a>
+        </div>
+        <a href="{{ url_for('main.transport') }}" class="dropdown-btn">Vehicle & Transportation</a>
+        <div class="dropdown-content">
+            <a href="#">Cars</a>
+            <a href="#">Motorcycles</a>
+            <a href="#">Bicycles & scooters</a>
+            <a href="#">Buses</a>
+        </div>
+        <a href="{{ url_for('main.events') }}" class="dropdown-btn">Events & Party</a>
+        <div class="dropdown-content">
+            <a href="#">Tents</a>
+            <a href="#">Furniture</a>
+            <a href="#">Lighting & decorations</a>
+            <a href="#">Wedding grounds</a>
+        </div>
+        <a href="{{ url_for('main.items') }}" class="dropdown-btn">Miscellaneous Items</a>
+        <div class="dropdown-content">
+            <a href="#">Construction equipment</a>
+            <a href="#">Farming tools</a>
+            <a href="#">Books</a>
+            <a href="#">Musical equipment</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section id="main" class="mb-5">
+        <div class="content-container">
+            <h2>Events & Parties</h2>
+
+            <!-- Tents -->
+            <h3 id="tents">Tents</h3>
+            <div class="grid-container">
+                <div class="row">
+                    {% if subcategories.tents %}
+                        {% for item in subcategories.tents %}
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="{{ item.image_url }}" class="card-img-top" alt="{{ item.name }}">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <strong>{{ item.name }}</strong><br>
+                                            <span class="badge {% if item.availability and item.quantity > 0 %}badge-success{% else %}badge-danger{% endif %}">
+                                                {% if item.availability and item.quantity > 0 %}Available{% else %}Unavailable{% endif %}
+                                            </span><br>
+                                            Price: <strong>KES {{ item.price }}</strong><br>
+                                            <i class="fas fa-map-marker-alt"></i> {{ item.available_locations|join(', ') }}<br>
+                                            <i class="fas fa-box"></i> Remaining: {{ item.quantity }}
+                                        </p>
+                                        <div class="buy-now-container">
+                                            {% if item.availability and item.quantity > 0 %}
+                                                {% if session.user_id %}
+                                                    <a href="{{ url_for('booking.book_item', item_id=item['_id']) }}" 
+                                                       class="buy-now-btn">
+                                                        <i class="fas fa-shopping-cart"></i> Book Now
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ url_for('auth.login', next=url_for('booking.book_item', item_id=item['_id'])) }}" 
+                                                       class="buy-now-btn login-btn">
+                                                        <i class="fas fa-sign-in-alt"></i> Login to Book
+                                                    </a>
+                                                {% endif %}
+                                            {% else %}
+                                                <button class="buy-now-btn btn-secondary" disabled>
+                                                    <i class="fas fa-times-circle"></i> Not Available
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No tents available.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Furniture -->
+            <h3 id="furnitures">Furniture</h3>
+            <div class="grid-container">
+                <div class="row">
+                    {% if subcategories.furnitures %}
+                        {% for item in subcategories.furnitures %}
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="{{ item.image_url }}" class="card-img-top" alt="{{ item.name }}">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <strong>{{ item.name }}</strong><br>
+                                            <span class="badge {% if item.availability and item.quantity > 0 %}badge-success{% else %}badge-danger{% endif %}">
+                                                {% if item.availability and item.quantity > 0 %}Available{% else %}Unavailable{% endif %}
+                                            </span><br>
+                                            Price: <strong>KES {{ item.price }}</strong><br>
+                                            <i class="fas fa-map-marker-alt"></i> {{ item.available_locations|join(', ') }}<br>
+                                            <i class="fas fa-box"></i> Remaining: {{ item.quantity }}
+                                        </p>
+                                        <div class="buy-now-container">
+                                            {% if item.availability and item.quantity > 0 %}
+                                                {% if session.user_id %}
+                                                    <a href="{{ url_for('booking.book_item', item_id=item['_id']) }}" 
+                                                       class="buy-now-btn">
+                                                        <i class="fas fa-shopping-cart"></i> Book Now
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ url_for('auth.login', next=url_for('booking.book_item', item_id=item['_id'])) }}" 
+                                                       class="buy-now-btn login-btn">
+                                                        <i class="fas fa-sign-in-alt"></i> Login to Book
+                                                    </a>
+                                                {% endif %}
+                                            {% else %}
+                                                <button class="buy-now-btn btn-secondary" disabled>
+                                                    <i class="fas fa-times-circle"></i> Not Available
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No furniture available.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Lighting & Decoration -->
+            <h3 id="lighting_decorations">Lighting & Decoration</h3>
+            <div class="grid-container">
+                <div class="row">
+                    {% if subcategories.lighting_decorations %}
+                        {% for item in subcategories.lighting_decorations %}
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="{{ item.image_url }}" class="card-img-top" alt="{{ item.name }}">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <strong>{{ item.name }}</strong><br>
+                                            <span class="badge {% if item.availability and item.quantity > 0 %}badge-success{% else %}badge-danger{% endif %}">
+                                                {% if item.availability and item.quantity > 0 %}Available{% else %}Unavailable{% endif %}
+                                            </span><br>
+                                            Price: <strong>KES {{ item.price }}</strong><br>
+                                            <i class="fas fa-map-marker-alt"></i> {{ item.available_locations|join(', ') }}<br>
+                                            <i class="fas fa-box"></i> Remaining: {{ item.quantity }}
+                                        </p>
+                                        <div class="buy-now-container">
+                                            {% if item.availability and item.quantity > 0 %}
+                                                {% if session.user_id %}
+                                                    <a href="{{ url_for('booking.book_item', item_id=item['_id']) }}" 
+                                                       class="buy-now-btn">
+                                                        <i class="fas fa-shopping-cart"></i> Book Now
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ url_for('auth.login', next=url_for('booking.book_item', item_id=item['_id'])) }}" 
+                                                       class="buy-now-btn login-btn">
+                                                        <i class="fas fa-sign-in-alt"></i> Login to Book
+                                                    </a>
+                                                {% endif %}
+                                            {% else %}
+                                                <button class="buy-now-btn btn-secondary" disabled>
+                                                    <i class="fas fa-times-circle"></i> Not Available
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No lighting & decoration available.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Wedding Grounds -->
+            <h3 id="wedding_grounds">Wedding Grounds</h3>
+            <div class="grid-container">
+                <div class="row">
+                    {% if subcategories.wedding_grounds %}
+                        {% for item in subcategories.wedding_grounds %}
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="{{ item.image_url }}" class="card-img-top" alt="{{ item.name }}">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <strong>{{ item.name }}</strong><br>
+                                            <span class="badge {% if item.availability and item.quantity > 0 %}badge-success{% else %}badge-danger{% endif %}">
+                                                {% if item.availability and item.quantity > 0 %}Available{% else %}Unavailable{% endif %}
+                                            </span><br>
+                                            Price: <strong>KES {{ item.price }}</strong><br>
+                                            <i class="fas fa-map-marker-alt"></i> {{ item.available_locations|join(', ') }}<br>
+                                            <i class="fas fa-box"></i> Remaining: {{ item.quantity }}
+                                        </p>
+                                        <div class="buy-now-container">
+                                            {% if item.availability and item.quantity > 0 %}
+                                                {% if session.user_id %}
+                                                    <a href="{{ url_for('booking.book_item', item_id=item['_id']) }}" 
+                                                       class="buy-now-btn">
+                                                        <i class="fas fa-shopping-cart"></i> Book Now
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ url_for('auth.login', next=url_for('booking.book_item', item_id=item['_id'])) }}" 
+                                                       class="buy-now-btn login-btn">
+                                                        <i class="fas fa-sign-in-alt"></i> Login to Book
+                                                    </a>
+                                                {% endif %}
+                                            {% else %}
+                                                <button class="buy-now-btn btn-secondary" disabled>
+                                                    <i class="fas fa-times-circle"></i> Not Available
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No wedding grounds available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 UniRent. All rights reserved.</p>
+            <p>Email: info@unirent.com | Phone: +254 799 531 517 | Location: City, Nakuru</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to open the sidebar
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.body.classList.add("sidebar-open");
+            document.querySelector('.overlay').style.display = 'block';
+        }
+
+        // Function to close the sidebar
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.body.classList.remove("sidebar-open");
+            document.querySelector('.overlay').style.display = 'none';
+        }
+
+        // Dropdown menu functionality
+        document.querySelectorAll('.dropdown-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                let dropdown = this.nextElementSibling;
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function (event) {
+            if (!event.target.matches('.dropdown-btn')) {
+                document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
+            }
+        });
+
+        // Overlay click to close sidebar
+        document.querySelector('.overlay').addEventListener('click', closeNav);
+    </script>
+</body>
+</html>

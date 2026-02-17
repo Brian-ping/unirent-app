@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Website Layout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Modern Navbar */
+        .navbar {
+            background-color: #2c3e50;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #f39c12 !important;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-size: 1rem;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #f39c12 !important;
+        }
+
+        .navbar-toggler {
+            border: none;
+            outline: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        /* Modern Sidebar */
+        .sidebar {
+            height: 100vh;
+            width: 0;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            background-color: #34495e;
+            overflow-x: hidden;
+            padding-top: 60px;
+            transition: 0.5s;
+        }
+
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: #ecf0f1;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #2c3e50;
+            color: #f39c12;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 2rem;
+            color: #ecf0f1;
+        }
+
+        .openbtn {
+            font-size: 1.5rem;
+            cursor: pointer;
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .openbtn:hover {
+            color: #f39c12;
+        }
+
+        /* Main Content */
+        .content-section h2 {
+            margin-bottom: 2rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 0px;
+            min-width: 250px;
+            text-align: center;
+           
+
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            height: auto;
+            width: 250px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 25px;
+            gap : 10px;
+        }
+
+        .card-body {
+            padding: 10px;
+            height: auto;
+            width: 200px;
+
+            
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #34495e;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .footer a {
+            color: #f39c12;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #e67e22;
+        }
+        .buy-now-btn {
+            background-color: #34495e; /* Aesthetic pinkish-red */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
+            text-align: right;
+        }
+        .buy-now-btn:hover {
+            background-color: #54eee6; /* Darker pink on hover */
+            box-shadow: 0 6px 15px rgba(255, 30, 77, 0.4);
+        }
+
+        .view-more-btn {
+            background-color: white;
+            color: black;
+            padding: 10px 16px;
+            border: none;
+            border-radius: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 6px;
+        }
+
+        .view-more-btn:hover {
+            background-color: #34495e;
+        }
+        .view-more-container {
+            text-align: right;
+}
+.buy-now-container {
+    text-align: right;
+}
+#main
+{
+    margin-right: 250px;
+    width: auto;
+    height:auto;
+}
+
+/**Dropdown menu*/
+.dropdown-content {
+    display: none;
+    padding-left: 15px;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 8px;
+    text-decoration: none;
+}
+
+.dropdown-btn {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.content-container {
+    background-color: white;
+    padding: 20px;
+    margin: 20px auto; /* Centers it */
+    max-width: 1500px; /* Sets a max width */
+    border-radius: 10px; /* Optional: Adds rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow */
+}
+</style>
+
+</head>
+<body style="background-color: rgb(184, 252, 252);">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <!-- Hamburger Menu Button -->
+            <button class="openbtn" onclick="openNav()">☰</button>
+            <a class="navbar-brand" href="#">UniRent</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <form class="d-flex ms-auto me-4">
+                    <input class="form-control me-3" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-heart"></i> Saved</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user"></i> Sign In/ Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="openbtn" onclick="closeNav()">×</a>
+    <a href="{{ url_for('electronics') }}" class="dropdown-btn">Electronics & appliances></a>
+    <div class="dropdown-content">
+        <a href="{{ url_for('electronics') }}#consoles">Consoles</a>
+        <a href="#">Televisions</a>
+        <a href="#">Cameras & drones</a>
+        <a href="#">Laptops</a>
+        <a href="#">Audio equipment</a>
+    </div>
+    <a href="{{ url_for('real') }}" class="dropdown-btn">Real estate and property></a>
+    <div class="dropdown-content">
+        <a href="#">Houses</a>
+        <a href="#">Apartments</a>
+        <a href="#">Land</a>
+        <a href="#">Wedding grounds</a>
+    </div>
+    <a href="{{ url_for('transport') }}" class="dropdown-btn">Vehicle & Transportation></a>
+    <div class="dropdown-content">
+        <a href="#">Cars</a>
+        <a href="#">Motorcycles</a>
+        <a href="#">Bicycles & scooters</a>
+        <a href="#">Buses</a>
+    </div>
+    <a href="{{ url_for('events') }}" class="dropdown-btn">Events & Party></a>
+    <div class="dropdown-content">
+        <a href="#">Tents</a>
+        <a href="#">Furniture</a>
+        <a href="#">Lighting & decorations</a>
+        <a href="#">Wedding grounds</a>
+    </div>
+    <a href="{{ url_for('items') }}" class="dropdown-btn">Miscellaneous Items></a>
+    <div class="dropdown-content">
+        <a href="#">Construction equipment</a>
+        <a href="#">Farming tools</a>
+        <a href="#">Books</a>
+        <a href="#">Musical equipment</a>
+    </div>
+</div>
+    <!-- Main Content -->
+    <div id="main">
+        <div class="container-fluid mt-4">
+            <div class="row">
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <!-- What's New Section -->
+                    <section class="mb-5">
+                        <div class="content-container">
+                        <h2>HOUSES</h2>
+                        <div class = "grid-container">
+
+                        <div class="row">
+
+                            <!--visible laptops-->
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    
+                                    <img src=https://i.pinimg.com/736x/81/b9/0d/81b90dbfc0df4063732a367e431b008b.jpg class="card-img-top, visible-img" alt="photo">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/ed/69/79/ed6979b2a569e7f1420f24108de102cd.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/474x/19/2f/64/192f64ff20fa28b9036be261332279b2.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/736x/e9/37/59/e93759fa4f2d7b5edee4f0e9d93792b8.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Hidden images-->
+                            <div id="hiddenHouses" style="display: none; grid-template-columns: repeat(4, 1fr); gap:10px;">
+                                <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/474x/4b/f2/49/4bf249d9e806c430d384e427abae064e.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/9c/6b/0b/9c6b0bbb15bdbb47254045a76a7c66ce.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/7d/d7/f2/7dd7f28af434814e6142bfb7de471303.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/90/2f/6b/902f6b52372108e27fb75c8b7d38b4a3.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text"><p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div> 
+                                        </p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="view-more-container">
+                        <button class="view-more-btn" onclick="toggleSection('hiddenHouses', 'viewBtn1')" id="viewBtn1">View More</button>
+                    </div>
+                </div>
+                </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <div class = "content-container">
+                        <h2>APARTMENTS</h2>
+                        <div class="grid-container">
+
+                        <div class="row">
+
+                            <!--visible laptops-->
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/05/71/a1/0571a140c8f2c73d60ad88ffd4a2bbb4.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/05/71/a1/0571a140c8f2c73d60ad88ffd4a2bbb4.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>  
+                            
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/05/71/a1/0571a140c8f2c73d60ad88ffd4a2bbb4.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/05/71/a1/0571a140c8f2c73d60ad88ffd4a2bbb4.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!--Hidden images-->
+                             <div id="hiddenApartments" style="display: none; grid-template-columns: repeat(4, 1fr); gap:10px;">
+                                <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/1f/dd/5c/1fdd5c46689b246b08066dad4e3909b2.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/1f/dd/5c/1fdd5c46689b246b08066dad4e3909b2.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/1f/dd/5c/1fdd5c46689b246b08066dad4e3909b2.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/21/7f/76/217f76040a238a5a4b96208af26fb7a1.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text"><p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div> 
+                                        </p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                    <div class="view-more-container">
+                        <button class="view-more-btn" onclick="toggleSection('hiddenApartments', 'viewBtn2')" id="viewBtn2">View More</button>
+                    </div>
+                </div>
+            </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <div class = "content-container">
+                        <h2>LAND</h2>
+                        <div class = "grid-continer">
+
+                        <div class="row">
+
+                            <!--visible laptops-->
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/05/71/a1/0571a140c8f2c73d60ad88ffd4a2bbb4.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/05/71/a1/0571a140c8f2c73d60ad88ffd4a2bbb4.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/05/71/a1/0571a140c8f2c73d60ad88ffd4a2bbb4.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/05/71/a1/0571a140c8f2c73d60ad88ffd4a2bbb4.jpg class="card-img-top, visible-img" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!--Hidden images-->
+                             <div id="hiddenLand" style="display: none; grid-template-columns: repeat(4, 1fr); gap:10px;">
+                                <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/1f/dd/5c/1fdd5c46689b246b08066dad4e3909b2.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/1f/dd/5c/1fdd5c46689b246b08066dad4e3909b2.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/1f/dd/5c/1fdd5c46689b246b08066dad4e3909b2.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src=https://i.pinimg.com/236x/21/7f/76/217f76040a238a5a4b96208af26fb7a1.jpg class="card-img-top" alt="What's New">
+                                    <div class="card-body">
+                                        <p class="card-text"><p class="card-text">text
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div> 
+                                        </p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                    <div class="view-more-container">
+                        <button class="view-more-btn" onclick="toggleSection('hiddenLand', 'viewBtn3')" id="viewBtn3">View More</button>
+                    </div>
+                </div>
+            </div>
+                    </section>
+
+
+
+                    <!-- View More Section -->
+                    <section class="mb-5">
+                        <div class = "content-container">
+                        <h2>STORAGE UNITS</h2>
+                        <div class = "grid-container">
+                        <div class="row">
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="View More">
+                                    <div class="card-body">
+                                        <p class="card-text">More Item 1
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="\Users\mercy\OneDrive\Documents\CYCLEGOODS\bicycle.jpg" class="card-img-top" alt="View More">
+                                    <div class="card-body">
+                                        <p class="card-text">More Item 2
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="\Users\mercy\OneDrive\Documents\CYCLEGOODS\bicycle.jpg" class="card-img-top" alt="View More">
+                                    <div class="card-body">
+                                        <p class="card-text">More Item 2
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="\Users\mercy\OneDrive\Documents\CYCLEGOODS\bicycle.jpg" class="card-img-top" alt="View More">
+                                    <div class="card-body">
+                                        <p class="card-text">More Item 2
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="hiddenUnits" style="display: none; grid-template-columns: repeat(4, 1fr); gap:10px;">
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="\Users\mercy\OneDrive\Documents\CYCLEGOODS\bicycle.jpg" class="card-img-top" alt="View More">
+                                    <div class="card-body">
+                                        <p class="card-text">More Item 2
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="\Users\mercy\OneDrive\Documents\CYCLEGOODS\bicycle.jpg" class="card-img-top" alt="View More">
+                                    <div class="card-body">
+                                        <p class="card-text">More Item 2
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="\Users\mercy\OneDrive\Documents\CYCLEGOODS\bicycle.jpg" class="card-img-top" alt="View More">
+                                    <div class="card-body">
+                                        <p class="card-text">More Item 2
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mb-4">
+                                <div class="card">
+                                    <img src="\Users\mercy\OneDrive\Documents\CYCLEGOODS\bicycle.jpg" class="card-img-top" alt="View More">
+                                    <div class="card-body">
+                                        <p class="card-text">More Item 2
+                                            <div class="buy-now-container">
+                                                <button class="buy-now-btn">Book Now</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            
+                            <div class="view-more-container">
+                                <button class="view-more-btn" onclick="toggleSection('hiddenUnits', 'viewBtn4')" id="viewBtn4">View More</button>
+                            </div>
+                        </div>
+                    </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 UniRent. All rights reserved.</p>
+            <p>Email: info@unirent.com | Phone: +123 456 7890 | Location: 123 UniRent St, City</p>
+        </div>
+    </footer>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "50px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+
+        //buy now buttton
+        function buyNow() {
+    alert("Redirecting to payment...");
+    // You can add a redirect link to a payment page here
+    window.location.href = "https://yourpaymentlink.com";
+        }
+
+        //viewmore view less button  
+    function toggleSection(sectionId, buttonId) {
+        let section = document.getElementById(sectionId);
+        let button = document.getElementById(buttonId);
+
+
+        if (section.style.display === "none" || section.style.display === "") {
+            section.style.display = "grid"; // Adjust display based on your layout
+            button.textContent = "View Less";
+        } else {
+            section.style.display = "none";
+            button.textContent = "View More";
+        }
+    }
+
+    //dropdown menu
+    document.querySelectorAll('.dropdown-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        let dropdown = this.nextElementSibling;
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+});
+
+
+</script>
+
+</body>
+
+</html>

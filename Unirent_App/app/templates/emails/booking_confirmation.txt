@@ -1,0 +1,7 @@
+Thank you for your booking!
+
+Booking ID: {{ booking_id }}
+Item: {{ item_name }}
+Price: {{ price }}
+Dates: {{ start_date }} to {{ end_date }}
+Location: {{ location }}

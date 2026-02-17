@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniRent - Rent Anything You Need</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #2c3e50;
+            --accent: #f39c12;
+            --accent-dark: #e67e22;
+            --light: #f8f9fa;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            line-height: 1.6;
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        /* Modern Navbar */
+        .navbar {
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 0.8rem 2rem;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--accent) !important;
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
+            transition: var(--transition);
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+            color: var(--accent-dark) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--light) !important;
+            font-weight: 500;
+            padding: 0.5rem 1.2rem !important;
+            margin: 0 4px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .navbar-nav .nav-link:hover {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--accent) !important;
+            transform: translateY(-2px);
+        }
+
+        .navbar-nav .nav-link i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Search Form */
+        .search-form {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .search-form:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent);
+        }
+
+        .search-form input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            min-width: 280px;
+        }
+
+        .search-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-form input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .search-form button {
+            background: var(--accent);
+            border: none;
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            color: white;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .search-form button:hover {
+            background: var(--accent-dark);
+            transform: scale(1.05);
+        }
+
+        /* User Dropdown */
+        .nav-item.dropdown {
+            list-style: none;
+            margin-left: 1rem;
+        }
+
+        .dropdown-menu {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            min-width: 200px;
+        }
+
+        .dropdown-item {
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .dropdown-item:hover i {
+            color: white;
+        }
+
+        .dropdown-divider {
+            border-top: 1px solid var(--light-gray);
+            margin: 0.5rem 0;
+        }
+
+        /* Modern Sidebar */
+        .sidebar {
+            height: 100vh;
+            width: 0;
+            position: fixed;
+            z-index: 1050;
+            top: 0;
+            left: 0;
+            background: linear-gradient(145deg, #2c3e50, #1e293b);
+            backdrop-filter: blur(10px);
+            overflow-x: hidden;
+            transition: 0.3s;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar a {
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+            color: var(--light);
+            display: block;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--accent);
+            border-left: 3px solid var(--accent);
+            transform: translateX(5px);
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            padding: 0;
+            border-left: none;
+        }
+
+        .sidebar .closebtn:hover {
+            background: transparent;
+            transform: rotate(90deg);
+            border-left: none;
+        }
+
+        .openbtn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: var(--transition);
+        }
+
+        .openbtn:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        /* Dropdown menu in sidebar */
+        .dropdown-content {
+            display: none;
+            background: rgba(0, 0, 0, 0.2);
+            padding-left: 1rem;
+        }
+
+        .dropdown-content a {
+            padding-left: 2.5rem !important;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-btn {
+            position: relative;
+        }
+
+        .dropdown-btn::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 20px;
+            transition: transform 0.3s;
+        }
+
+        .dropdown-btn.active::after {
+            transform: rotate(180deg);
+        }
+
+        /* Main Content Container */
+        .content-container {
+            background: white;
+            border-radius: 40px 40px 0 0;
+            padding: 3rem 2rem;
+            margin: 2rem auto;
+            max-width: 1400px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(145deg, #667eea, #764ba2);
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .hero-content .lead {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            background: white;
+            padding: 5px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-container button {
+            background: var(--accent);
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            color: white;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .search-container button:hover {
+            background: var(--accent-dark);
+            transform: scale(1.05);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+
+        /* Category Cards Grid */
+        .all-categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 4rem;
+        }
+
+        .main-category-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 300px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .main-category-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .main-category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .main-category-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+            padding: 2rem 1.5rem;
+            transform: translateY(0);
+            transition: var(--transition);
+        }
+
+        .main-category-card:hover .category-overlay {
+            background: linear-gradient(to top, rgba(67, 97, 238, 0.95), rgba(0,0,0,0.3));
+        }
+
+        .category-overlay h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .subcategories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .subcategories span {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .subcategories span:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Featured Items Grid */
+        .featured-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 4rem;
+        }
+
+        .featured-item-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--light-gray);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .featured-item-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .featured-item-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .featured-item-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .item-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-category {
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .item-subcategory {
+            font-size: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 50px;
+        }
+
+        .item-info h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+            color: var(--dark);
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--success);
+            margin: 0.5rem 0;
+        }
+
+        .location {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin: 0.5rem 0;
+        }
+
+        .location i {
+            color: var(--primary);
+            margin-right: 5px;
+        }
+
+        /* Book Now Button Styles */
+        .buy-now-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .buy-now-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .login-btn {
+            background: var(--accent);
+        }
+
+        .login-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        .btn-secondary {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .btn-secondary:hover {
+            background-color: #95a5a6;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 4rem;
+        }
+
+        .benefit-card {
+            background: linear-gradient(145deg, white, #f8f9fa);
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid var(--light-gray);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .benefit-card p {
+            color: var(--gray);
+            margin: 0;
+        }
+
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--light-gray);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--primary);
+            opacity: 0.1;
+            font-family: serif;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--dark);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .customer {
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .customer::before {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        /* Modern Footer */
+        .footer {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            color: var(--light);
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-text {
+            color: var(--light-gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-contact p {
+            color: var(--light-gray);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact i {
+            color: var(--accent);
+            width: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .newsletter-form button {
+            padding: 0.8rem 1.5rem;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background: var(--accent-dark);
+            transform: scale(1.05);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--light-gray);
+        }
+
+        .footer-disclaimer {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+
+        /* Highlight for search */
+        .highlight {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: var(--dark);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* No results message */
+        .no-results-message {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .no-results-message button {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .no-results-message button:hover {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Badge Styles */
+        .badge-success {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .badge-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .search-form input {
+                min-width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-banner {
+                padding: 3rem 1.5rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+                background: transparent;
+                gap: 10px;
+            }
+            
+            .search-container input,
+            .search-container button {
+                width: 100%;
+                border-radius: 50px;
+            }
+            
+            .content-container {
+                padding: 2rem 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-grid {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-content .lead {
+                font-size: 1rem;
+            }
+            
+            .category-overlay h3 {
+                font-size: 1.5rem;
+            }
+            
+            .benefit-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <button class="openbtn" onclick="openNav()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="/">UniRent</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <form class="d-flex ms-auto me-4 search-form">
+                    <input type="search" placeholder="Search for anything..." aria-label="Search">
+                    <button type="submit">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </form>
+                
+                <!-- Login/Register Dropdown -->
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i> Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                            <li><a class="dropdown-item" href="/login"><i class="fas fa-sign-in-alt"></i>Login</a></li>
+                            <li><a class="dropdown-item" href="/register"><i class="fas fa-user-plus"></i>Register</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/view_bookings"><i class="fas fa-calendar-check"></i>View Bookings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+            <i class="fas fa-times"></i>
+        </a>
+        <a href="{{ url_for('main.electronics') }}" class="dropdown-btn">Electronics & Appliances</a>
+        <div class="dropdown-content">
+            <a href="{{ url_for('main.electronics') }}#consoles">Consoles</a>
+            <a href="#">Televisions</a>
+            <a href="#">Cameras & Drones</a>
+            <a href="#">Laptops</a>
+            <a href="#">Audio Equipment</a>
+        </div>
+        
+        <a href="{{ url_for('main.real') }}" class="dropdown-btn">Real Estate & Property</a>
+        <div class="dropdown-content">
+            <a href="#">Houses</a>
+            <a href="#">Apartments</a>
+            <a href="#">Land</a>
+            <a href="#">Wedding Grounds</a>
+        </div>
+        
+        <a href="{{ url_for('main.transport') }}" class="dropdown-btn">Vehicle & Transportation</a>
+        <div class="dropdown-content">
+            <a href="#">Cars</a>
+            <a href="#">Motorcycles</a>
+            <a href="#">Bicycles & Scooters</a>
+            <a href="#">Buses</a>
+        </div>
+        
+        <a href="{{ url_for('main.events') }}" class="dropdown-btn">Events & Party</a>
+        <div class="dropdown-content">
+            <a href="#">Tents</a>
+            <a href="#">Furniture</a>
+            <a href="#">Lighting & Decorations</a>
+            <a href="#">Wedding Grounds</a>
+        </div>
+        
+        <a href="{{ url_for('main.items') }}" class="dropdown-btn">Miscellaneous Items</a>
+        <div class="dropdown-content">
+            <a href="#">Construction Equipment</a>
+            <a href="#">Farming Tools</a>
+            <a href="#">Books</a>
+            <a href="#">Musical Equipment</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <section id="landing" class="mb-5">
+        <div class="content-container">
+            <!-- Hero Banner -->
+            <div class="hero-banner fade-in">
+                <div class="hero-content">
+                    <h1>Rent Anything You Need</h1>
+                    <p class="lead">From electronics to real estate, we've got you covered</p>
+                    <div class="search-container">
+                        <input type="text" placeholder="What are you looking for?">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-search me-2"></i>Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Categories Section -->
+            <div class="section-header">
+                <h2>Browse by Category</h2>
+            </div>
+            
+            <div class="all-categories-grid mb-5">
+                <!-- Electronics -->
+                <div class="main-category-card">
+                    <a href="{{ url_for('main.electronics') }}" style="text-decoration: none;">
+                        <img src="https://th.bing.com/th/id/OIP.FkP2xsIXRbU_itbTBlIAgAHaDu?rs=1&pid=ImgDetMain"
+                            alt="Electronics">
+                        <div class="category-overlay">
+                            <h3>Electronics</h3>
+                            <div class="subcategories">
+                                <span>Consoles</span>
+                                <span>TVs</span>
+                                <span>Laptops</span>
+                                <span>More...</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Real Estate -->
+                <div class="main-category-card">
+                    <a href="{{ url_for('main.real') }}" style="text-decoration: none;">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPaNGvbMrPJIAhHwl-sva0ox7UlPp1dsDI_g&s"
+                            alt="Real Estate">
+                        <div class="category-overlay">
+                            <h3>Real Estate</h3>
+                            <div class="subcategories">
+                                <span>Houses</span>
+                                <span>Apartments</span>
+                                <span>Land</span>
+                                <span>More...</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Transport -->
+                <div class="main-category-card">
+                    <a href="{{ url_for('main.transport') }}" style="text-decoration: none;">
+                        <img src="https://www.esquireme.com/cloud/2021/09/08/UAE-best-selling-car-Toyota-Land-Cruiser.jpg"
+                            alt="Transport">
+                        <div class="category-overlay">
+                            <h3>Transport</h3>
+                            <div class="subcategories">
+                                <span>Cars</span>
+                                <span>Motorcycles</span>
+                                <span>Buses</span>
+                                <span>More...</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Events -->
+                <div class="main-category-card">
+                    <a href="{{ url_for('main.events') }}" style="text-decoration: none;">
+                        <img src="https://media.istockphoto.com/id/1466140523/photo/large-white-tent-set-up-for-an-outdoor-ceremony.jpg?s=612x612&w=0&k=20&c=gNN7UYWf82o-Ofm0fzdzp7Qy6MTATSc-e3dsGUv3ZSg="
+                            alt="Events">
+                        <div class="category-overlay">
+                            <h3>Events</h3>
+                            <div class="subcategories">
+                                <span>Tents</span>
+                                <span>Furniture</span>
+                                <span>Wedding Grounds</span>
+                                <span>More...</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Miscellaneous -->
+                <div class="main-category-card">
+                    <a href="{{ url_for('main.items') }}" style="text-decoration: none;">
+                        <img src="https://blog.koenigequipment.com/hubfs/X9%201000-min-1.png" alt="Miscellaneous">
+                        <div class="category-overlay">
+                            <h3>Miscellaneous</h3>
+                            <div class="subcategories">
+                                <span>Construction</span>
+                                <span>Farming</span>
+                                <span>Books</span>
+                                <span>More...</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Featured Items Section -->
+            <div class="section-header">
+                <h2>Featured Rentals</h2>
+            </div>
+            
+            <div class="featured-items-grid mb-5">
+                {% if items and items|length > 0 %}
+                    {% for item in items %}
+                    <div class="featured-item-card">
+                        <img src="{{ item.image_url }}" alt="{{ item.name }}" class="item-image">
+                        <div class="item-info">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="item-category badge bg-secondary">
+                                    {{ item.category|default('General') }}
+                                </span>
+                                <span class="item-subcategory badge bg-info text-dark">
+                                    {{ item.subcategory|default('Item') }}
+                                </span>
+                            </div>
+                            <h4>{{ item.name }}</h4>
+                            <div class="price">KSh {{ item.price|default('0') }}</div>
+                            <div class="location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                {{ item.available_locations|join(', ') if item.available_locations else 'Nairobi' }}
+                            </div>
+                            <div class="buy-now-container">
+                                {% if session.user_id %}
+                                    <a href="{{ url_for('booking.book_item', item_id=item['_id']) }}" 
+                                       class="buy-now-btn">
+                                        <i class="fas fa-shopping-cart"></i> Rent Now
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('auth.login', next=url_for('booking.book_item', item_id=item['_id'])) }}" 
+                                       class="buy-now-btn login-btn">
+                                        <i class="fas fa-sign-in-alt"></i> Login to Rent
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12 text-center py-5">
+                        <p class="text-muted">No featured items available at the moment.</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Why Choose Us Section -->
+            <div class="section-header">
+                <h2>Why Choose Our Rental Service</h2>
+            </div>
+            
+            <div class="benefits-grid mb-5">
+                <div class="benefit-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Verified Items</h3>
+                    <p>All items are quality checked before listing</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-tag"></i>
+                    <h3>Affordable Rates</h3>
+                    <p>Competitive pricing for all rental items</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Multiple Locations</h3>
+                    <p>Convenient pickup points across the country</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Our team is always ready to help</p>
+                </div>
+            </div>
+
+            <!-- Testimonials Section -->
+            <div class="section-header">
+                <h2>What Our Customers Say</h2>
+            </div>
+            
+            <div class="testimonials-grid mb-5">
+                <div class="testimonial-card">
+                    <div class="rating">★★★★★</div>
+                    <p>"Rented a car for our family trip and the process was seamless!"</p>
+                    <div class="customer">- James M.</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">★★★★☆</div>
+                    <p>"Found the perfect apartment for my 6-month work assignment."</p>
+                    <div class="customer">- Sarah K.</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">★★★★★</div>
+                    <p>"The wedding tent and decorations made our special day perfect."</p>
+                    <div class="customer">- David & Grace</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Company Info -->
+                <div class="footer-section">
+                    <h3>UniRent</h3>
+                    <p class="footer-text">Your trusted partner for all rental needs. Quality items, affordable prices, and exceptional service.</p>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> City, Nakuru</p>
+                        <p><i class="fas fa-phone"></i> +254 799 531 517</p>
+                        <p><i class="fas fa-envelope"></i> info@unirent.com</p>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section" style="display: none;">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/properties">Browse Properties</a></li>
+                        <li><a href="/how-it-works">How It Works</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/cookies">Cookie Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Connect With Us -->
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="https://facebook.com/unirent" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/unirent" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/unirent" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com/company/unirent" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="newsletter">
+                        <p>Subscribe to our newsletter</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email address" required>
+                            <button type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 UniRent. All rights reserved. | VAT Number: 123456789 | Company Registration: 987654321</p>
+                <p class="footer-disclaimer">UniRent is a registered trademark. All property listings and information are subject to change.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlay for sidebar -->
+    <div class="overlay" onclick="closeNav()"></div>
+
+    <script>
+        // Enhanced sidebar functionality
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "300px";
+            document.querySelector('.overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.querySelector('.overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Enhanced dropdown menu
+        document.querySelectorAll('.dropdown-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.classList.toggle('active');
+                let dropdown = this.nextElementSibling;
+                
+                if (dropdown.style.display === 'block') {
+                    dropdown.style.display = 'none';
+                } else {
+                    dropdown.style.display = 'block';
+                }
+            });
+        });
+
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.querySelector('.search-container input');
+            const searchButton = document.querySelector('.search-container button');
+            const featuredItems = document.querySelectorAll('.featured-item-card');
+            const categoryCards = document.querySelectorAll('.main-category-card');
+
+            // Store original content
+            const originalContents = new Map();
+            featuredItems.forEach(item => {
+                originalContents.set(item, item.innerHTML);
+            });
+            categoryCards.forEach(card => {
+                originalContents.set(card, card.innerHTML);
+            });
+
+            function performSearch(searchTerm) {
+                const term = searchTerm.toLowerCase();
+                let hasResults = false;
+
+                // Reset all items
+                featuredItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.innerHTML = originalContents.get(item);
+                });
+                categoryCards.forEach(card => {
+                    card.style.display = 'block';
+                    card.innerHTML = originalContents.get(card);
+                });
+
+                if (term === '') return;
+
+                // Search featured items
+                featuredItems.forEach(item => {
+                    const itemText = item.textContent.toLowerCase();
+                    if (!itemText.includes(term)) {
+                        item.style.display = 'none';
+                    } else {
+                        hasResults = true;
+                    }
+                });
+
+                // Search category cards
+                categoryCards.forEach(card => {
+                    const cardText = card.textContent.toLowerCase();
+                    if (!cardText.includes(term)) {
+                        card.style.display = 'none';
+                    } else {
+                        hasResults = true;
+                    }
+                });
+
+                // Show no results message
+                const existingMsg = document.querySelector('.no-results-message');
+                if (!hasResults && term !== '') {
+                    if (!existingMsg) {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.className = 'no-results-message';
+                        messageDiv.innerHTML = `
+                            <div>
+                                <i class="fas fa-search me-2"></i>
+                                No items found matching "<strong>${searchTerm}</strong>"
+                            </div>
+                            <button onclick="clearSearch()">
+                                <i class="fas fa-times me-2"></i>Clear Search
+                            </button>
+                        `;
+                        const contentContainer = document.querySelector('.content-container');
+                        contentContainer.insertBefore(messageDiv, contentContainer.firstChild);
+                    }
+                } else if (existingMsg) {
+                    existingMsg.remove();
+                }
+            }
+
+            window.clearSearch = function() {
+                if (searchInput) searchInput.value = '';
+                featuredItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.innerHTML = originalContents.get(item);
+                });
+                categoryCards.forEach(card => {
+                    card.style.display = 'block';
+                    card.innerHTML = originalContents.get(card);
+                });
+                const noResultsMsg = document.querySelector('.no-results-message');
+                if (noResultsMsg) noResultsMsg.remove();
+            };
+
+            // Search on button click
+            if (searchButton) {
+                searchButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    performSearch(searchInput.value.trim());
+                });
+            }
+
+            // Search on input (with debounce)
+            if (searchInput) {
+                let timeout;
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        performSearch(this.value.trim());
+                    }, 300);
+                });
+            }
+
+            // Removed image fallback code
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- Overlay styles -->
+    <style>
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1040;
+            transition: 0.3s;
+        }
+        
+        .main-category-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</body>
+</html>

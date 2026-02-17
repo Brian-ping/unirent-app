@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Your Saved Items</h2>
+    {% if saved_items %}
+        <div class="row">
+            {% for item in saved_items %}
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                        <!-- Use the same card design as electronics.html -->
+                        <img src="{{ item.image_url }}" class="card-img-top" alt="{{ item.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.name }}</h5>
+                            <p class="card-text">KES {{ item.price }}</p>
+                            <a href="{{ url_for('booking.book_item', item_id=item.id) }}" class="btn btn-primary">
+                                Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            You haven't saved any items yet.
+            <a href="{{ url_for('main.electronics') }}" class="alert-link">Browse electronics</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
